@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "41389d33-a61f-484a-a99c-9104d30008ab",
+		"name": "Coll_3DEC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39866532"
+	},
+	"item": [
+		{
+			"name": "Data Driven",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var random= Math.floor(Math.random() * 10000000);\r",
+							"\r",
+							"pm.collectionVariables.set(\"name\",pm.iterationData.get(\"name\"));\r",
+							"pm.collectionVariables.set(\"email\",pm.iterationData.get(\"email\"));\r",
+							"pm.collectionVariables.set(\"gender\",pm.iterationData.get(\"gender\"));\r",
+							"pm.collectionVariables.set(\"status\",pm.iterationData.get(\"status\"));\r",
+							"pm.collectionVariables.set(\"statuscode\",pm.iterationData.get(\"statuscode\"));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//To validate the request is successful\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"[Iteration Data]status code is 200\",function(){\r",
+							"    pm.response.to.have.status(pm.collectionVariables.get(\"statuscode\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":  \"{{name}}\",\r\n      \"email\":  \"{{email}}\",\r\n        \"gender\":  \"{{gender}}\",\r\n          \"status\":  \"{{status}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{Token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "email",
+			"value": ""
+		},
+		{
+			"key": "gender",
+			"value": ""
+		},
+		{
+			"key": "status",
+			"value": ""
+		},
+		{
+			"key": "Token",
+			"value": "7c0e67ce81a8ff519e7295d49c666265fbbed021d5d465636bd6ec5374f1b6fc",
+			"type": "string"
+		},
+		{
+			"key": "statuscode",
+			"value": ""
+		}
+	]
+}
